@@ -1,10 +1,20 @@
-import "../css/app.css";
 import React from "react";
-import { createRoot } from 'react-dom/client';
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import ProvideAuth, {
+    PrivateRoute,
+    PublicRoute,
+} from "./providers/Auth/AuthProvider";
+import { Router } from "./router/Router";
 
 const App = () => {
-    return <h1 className="text-red-400 text-4xl"></h1>;
+    // 編集
+    return (
+        <ProvideAuth>
+            <Router />
+        </ProvideAuth>
+    );
 };
-const container = document.getElementById('app') as HTMLInputElement;
-const root = createRoot(container);
-root.render(<App />);
+
+ReactDOM.render(<App />, document.getElementById("app"));
