@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/Auth/AuthProvider";
 
 interface EmailAndPasswordData {
@@ -18,15 +18,16 @@ const Register = () => {
         setError,
         formState: { errors },
     } = useForm();
-    const navigation = useNavigate();
+    const history = useHistory();
     const [loading, setLoading] = useState(false);
     const auth = useAuth();
 
     const onSubmit = (data: EmailAndPasswordData) => {
         setLoading(true);
         axios.get("/sanctum/csrf-cookie").then(() => {
-            auth?.register(data).then(() => {
-                    navigation("/mypage");
+            auth?.register(data)
+                .then(() => {
+                    history.push("/mypage");
                 })
                 .catch((error) => {
                     console.log(error);

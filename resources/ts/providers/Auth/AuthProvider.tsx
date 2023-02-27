@@ -6,7 +6,7 @@ import React, {
     ReactNode,
     useEffect,
 } from "react";
-import { Route, useLocation, Navigate, useNavigate } from "react-router-dom";
+import { Route, Redirect, useHistory } from "react-router-dom";
 
 interface User {
     id: number;
@@ -44,11 +44,10 @@ interface Props {
 interface RouteProps {
     children: ReactNode;
     path: string;
+    exact?: boolean;
 }
 interface From {
-    from: {
-        pathname: string;
-    };
+    from: Location;
 }
 
 const authContext = createContext<authProps | null>(null);
@@ -68,7 +67,7 @@ const useProvideAuth = () => {
 
     const register = (registerData: RegisterData) => {
         return axios.post("/api/register", registerData).then((res) => {
-            axios.get("/api/user").then((res) => {
+            axios.get("api/user").then((res) => {
                 setUser(res.data);
             });
         });
@@ -84,7 +83,6 @@ const useProvideAuth = () => {
         return axios
             .get("/api/user")
             .then((res) => {
-                console.log(res.data);
                 setUser(res.data);
             })
             .catch((error) => {
@@ -100,7 +98,7 @@ const useProvideAuth = () => {
 
     const saveProfile = async (formData: FormData | ProfileData) => {
         const res = await axios
-            .post("/user/profile-information", formData, {
+            .post("/api/user/profile-information", formData, {
                 headers: { "X-HTTP-Method-Override": "PUT" },
             })
             .catch((error) => {
@@ -119,24 +117,16 @@ const useProvideAuth = () => {
     };
 
     useEffect(() => {
-        console.log("this");
         axios
             .get("/api/user")
             .then((res) => {
-                console.log(res);
-
                 setUser(res.data);
             })
             .catch((error) => {
-                console.log(error);
                 setUser(null);
             });
-        console.log("thithit");
-    console.log(user);
-
     }, []);
 
-    console.log(user);
     return {
         user,
         register,
@@ -149,23 +139,26 @@ const useProvideAuth = () => {
 /**
  * 認証済みのみアクセス可能
  */
-export const PrivateRoute = ({ children, path }: RouteProps) => {
+export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
     const auth = useAuth();
-
     return (
         <Route
             path={path}
-            element={
-                auth?.user == null ? (
-                    <Navigate
-                        to="/login"
-                        state={{ from: path }}
-                        replace={true}
-                    />
-                ) : (
-                    children
-                )
-            }
+            exact={exact}
+            render={({ location }) => {
+                if (auth?.user == null) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/login",
+                                state: { from: location },
+                            }}
+                        />
+                    );
+                } else {
+                    return children;
+                }
+            }}
         />
     );
 };
@@ -173,17 +166,30 @@ export const PrivateRoute = ({ children, path }: RouteProps) => {
 /**
  * 認証していない場合のみアクセス可能（ログイン画面など）
  */
-export const PublicRoute = ({ children, path, ...props }: RouteProps) => {
+export const PublicRoute = ({ children, path, exact = false }: RouteProps) => {
     const auth = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
-
-    if (auth?.user != null) {
-        navigate((location.state as From)?.from?.pathname ?? "/", {
-            replace: true,
-        });
-        return null;
-    }
-
-    return <Route path={path} {...props} element={children} />;
+    const history = useHistory();
+    return (
+        <Route
+            path={path}
+            exact={exact}
+            render={({ location }) => {
+                if (auth?.user == null) {
+                    return children;
+                } else {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: (history.location.state as From)
+                                    ? (history.location.state as From).from
+                                          .pathname
+                                    : "/",
+                                state: { from: location },
+                            }}
+                        />
+                    );
+                }
+            }}
+        />
+    );
 };

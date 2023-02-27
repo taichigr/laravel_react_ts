@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useHistory } from "react-router";
 import { useAuth } from "../../providers/Auth/AuthProvider";
 
 interface LoginData {
@@ -18,7 +18,7 @@ export const Login = () => {
         clearErrors,
         formState: { errors },
     } = useForm();
-    const navigation = useNavigate();
+    const history = useHistory();
     const [loading, setLoading] = useState(false);
     const auth = useAuth();
 
@@ -27,7 +27,7 @@ export const Login = () => {
         axios.get("/sanctum/csrf-cookie").then(() => {
             auth?.signin(data)
                 .then(() => {
-                    navigation("/mypage");
+                    history.push("/mypage");
                 })
                 .catch((error) => {
                     console.log(error);

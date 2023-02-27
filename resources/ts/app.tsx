@@ -1,21 +1,20 @@
-import "../css/app.css";
 import React from "react";
-import { createRoot } from 'react-dom/client';
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import ProvideAuth, {
+    PrivateRoute,
+    PublicRoute,
+} from "./providers/Auth/AuthProvider";
 import { Router } from "./router/Router";
-import ProvideAuth from "./providers/Auth/AuthProvider";
-
-// import {BrowserRouter, Route, Switch} from 'react-router-dom'
-
 
 const App = () => {
+    // 編集
     return (
-        <>
-          <ProvideAuth>
-              <Router />
-          </ProvideAuth>
-        </>
+        <ProvideAuth>
+            <Router />
+        </ProvideAuth>
     );
 };
-const container = document.getElementById('app') as HTMLInputElement;
-const root = createRoot(container);
-root.render(<App />);
+
+ReactDOM.render(<App />, document.getElementById("app"));

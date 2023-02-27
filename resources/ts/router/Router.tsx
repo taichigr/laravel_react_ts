@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 
 // import { Index } from '../components/pages/Index'
 // import { Detail } from '../components/pages/Detail'
@@ -16,26 +16,24 @@ import ProvideAuth, {
 export const Router = () => {
     return (
         <>
-            <ProvideAuth>
-                <BrowserRouter>
-                    <Routes>
-                        <PrivateRoute path="/mypage">
-                            <Home />
-                        </PrivateRoute>
-                        <PublicRoute path="/login">
-                            <Login />
-                        </PublicRoute>
-                        <PublicRoute path="/register">
-                            <Register />
-                        </PublicRoute>
+            <BrowserRouter>
+                <Switch>
+                    <PrivateRoute path="/mypage">
+                        <Home />
+                    </PrivateRoute>
+                    <PublicRoute path="/login">
+                        <Login />
+                    </PublicRoute>
+                    <PublicRoute path="/register">
+                        <Register />
+                    </PublicRoute>
 
-                        {/* <Route path="/" element={<Index />} />
+                    {/* <Route path="/" element={<Index />} />
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/404" element={<Page404 />} /> */}
-                    </Routes>
-                </BrowserRouter>
-            </ProvideAuth>
+                </Switch>
+            </BrowserRouter>
         </>
     );
 };
