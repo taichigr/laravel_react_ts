@@ -67,27 +67,24 @@ const useProvideAuth = () => {
 
     const register = (registerData: RegisterData) => {
         return axios.post("/api/register", registerData).then((res) => {
-            axios.get("api/user").then((res) => {
+            axios.get("/api/user").then((res) => {
                 setUser(res.data);
             });
         });
     };
 
     const signin = async (loginData: LoginData) => {
-        try {
-            const res = await axios.post("/api/login", loginData);
-        } catch (error) {
-            throw error;
+        const response = await axios.post("/api/login", loginData);
+        if (response.status) {
+            const userRes = await axios
+                .get("/api/user")
+                .then((res) => {
+                    setUser(res.data);
+                })
+                .catch((error) => {
+                    setUser(null);
+                });
         }
-
-        return axios
-            .get("/api/user")
-            .then((res) => {
-                setUser(res.data);
-            })
-            .catch((error) => {
-                setUser(null);
-            });
     };
 
     const signout = () => {
@@ -117,8 +114,7 @@ const useProvideAuth = () => {
     };
 
     useEffect(() => {
-        axios
-            .get("/api/user")
+        axios.get("/api/user")
             .then((res) => {
                 setUser(res.data);
             })
