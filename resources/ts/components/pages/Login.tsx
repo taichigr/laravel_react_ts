@@ -71,7 +71,7 @@ export const Login = () => {
                     )}
                 </div>
                 <div className="py-4">
-                    <label htmlFor="password">Email</label>
+                    <label htmlFor="password">password</label>
                     <input
                         type="password"
                         id="password"

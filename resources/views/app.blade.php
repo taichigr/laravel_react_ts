@@ -8,8 +8,6 @@
         @vite(['resources/css/app.css','resources/ts/app.tsx'])
     </head>
     <body>
-        @dump(Auth::check());
-        {{-- @dump(session()); --}}
         <div id="app"></div>
     </body>
 </html>
