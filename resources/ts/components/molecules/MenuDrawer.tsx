@@ -3,18 +3,26 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 import { Link } from "react-router-dom";
 
-import {
-    HamburgerMenuIcon,
-    Cross1Icon,
-    DotFilledIcon,
-    CheckIcon,
-    ChevronRightIcon,
-} from "@radix-ui/react-icons";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { useAuth } from "../../providers/Auth/AuthProvider";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-export const MenuDrawer:VFC = memo(() => {
+export const MenuDrawer: VFC = memo(() => {
     const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
     const [urlsChecked, setUrlsChecked] = React.useState(false);
     const [person, setPerson] = React.useState("pedro");
+
+    const history = useHistory();
+    const auth = useAuth();
+
+    const logout = () => {
+        axios.get("/sanctum/csrf-cookie").then(() => {
+            auth?.signout().then(() => {
+                history.push("/login");
+            });
+        });
+    };
 
     return (
         <DropdownMenu.Root>
@@ -33,17 +41,26 @@ export const MenuDrawer:VFC = memo(() => {
                     sideOffset={10}
                     alignOffset={10}
                 >
-
-                    <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
-                        <Link to="/login">Login</Link>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
-                        <Link to="/register">Register</Link>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
-                        <Link to="/mypage">Mypage</Link>
-                    </DropdownMenu.Item>
-
+                    {!auth.user && (
+                        <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
+                            <Link to="/login">Login</Link>
+                        </DropdownMenu.Item>
+                    )}
+                    {!auth.user && (
+                        <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
+                            <Link to="/register">Register</Link>
+                        </DropdownMenu.Item>
+                    )}
+                    {auth.user && (
+                        <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
+                            <Link to="/mypage">Mypage</Link>
+                        </DropdownMenu.Item>
+                    )}
+                    {auth.user && (
+                        <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
+                            <button onClick={logout}>logout</button>
+                        </DropdownMenu.Item>
+                    )}
                 </DropdownMenu.Content>
             </DropdownMenu.Portal>
         </DropdownMenu.Root>

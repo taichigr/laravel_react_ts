@@ -137,7 +137,6 @@ const useProvideAuth = () => {
  */
 export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
     const auth = useAuth();
-    console.log('private')
     return (
         <Route
             path={path}
@@ -180,7 +179,7 @@ export const OnlyGuestRoute = ({ children, path, exact = false }: RouteProps) =>
                                 pathname: (history.location.state as From)
                                     ? (history.location.state as From).from
                                           .pathname
-                                    : "/",
+                                    : "/mypage",
                                 state: { from: location },
                             }}
                         />
