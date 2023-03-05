@@ -137,6 +137,7 @@ const useProvideAuth = () => {
  */
 export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
     const auth = useAuth();
+    console.log('private')
     return (
         <Route
             path={path}
@@ -162,7 +163,7 @@ export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
 /**
  * 認証していない場合のみアクセス可能（ログイン画面など）
  */
-export const PublicRoute = ({ children, path, exact = false }: RouteProps) => {
+export const OnlyGuestRoute = ({ children, path, exact = false }: RouteProps) => {
     const auth = useAuth();
     const history = useHistory();
     return (

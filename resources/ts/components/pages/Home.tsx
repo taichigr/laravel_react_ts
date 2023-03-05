@@ -18,24 +18,6 @@ export const Home = () => {
         <div className="p-4">
             <h1>Home</h1>
             <p>Hello! {auth?.user?.name}</p>
-            <button
-                className="m-2 rounded-lg bg-green-600 text-white p-2"
-                onClick={() => history.push("/login")}
-            >
-                login
-            </button>
-            <button
-                className="m-2 rounded-lg bg-green-600 text-white p-2"
-                onClick={() => history.push("/register")}
-            >
-                register
-            </button>
-            <button
-                className="m-2 rounded-lg bg-green-600 text-white p-2"
-                onClick={logout}
-            >
-                logout
-            </button>
         </div>
     );
 };

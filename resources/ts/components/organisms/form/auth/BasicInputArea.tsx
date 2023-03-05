@@ -1,28 +1,23 @@
 import { ReactNode, VFC } from "react";
 
-import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, useForm, UseFormRegister } from "react-hook-form";
+import { BasicInput } from "../../../molecules/form/BasicInput";
+import { ErrorMessage } from "../../../molecules/form/ErrorMessage";
 
 type Props = {
     type: string;
     id: string;
+    label: string;
     register: UseFormRegister<FieldValues>;
-}
+    errors: FieldErrors<FieldValues>;
+};
 
 export const BasicInputArea: VFC<Props> = (props) => {
-    const {type, id, register} = props;
+    const { type, id, label, register, errors } = props;
     return (
         <>
-            <div className="py-4">
-                <label htmlFor={id}>Email</label>
-                <input
-                    className="p-2 border border-gray-800 rounded w-full focus:bg-gray-100 outline-none"
-                    type={type}
-                    id={id}
-                    {...register(id, {
-                        required: "このフォームは必須です",
-                    })}
-                />
-            </div>
+            <BasicInput type={type} id={id} label={label} register={register} />
+            <ErrorMessage id={id} errors={errors} />
         </>
     );
 };

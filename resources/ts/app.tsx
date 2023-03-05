@@ -2,10 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import ProvideAuth, {
-    PrivateRoute,
-    PublicRoute,
-} from "./providers/Auth/AuthProvider";
+import ProvideAuth from "./providers/Auth/AuthProvider";
 import { Router } from "./router/Router";
 
 const App = () => {

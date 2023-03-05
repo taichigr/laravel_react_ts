@@ -12,7 +12,7 @@ export const PrimaryButton: VFC<Props> = (props) => {
         <>
             <button
                 type={type}
-                className="py-4 px-10 bg-teal-400 text-white rounded-lg hover:bg-teal-300"
+                className="py-4 px-10 bg-teal-400 text-white rounded-lg hover:bg-teal-300 w-full md:w-auto"
             >
                 {text}
             </button>

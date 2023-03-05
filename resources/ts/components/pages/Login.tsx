@@ -4,14 +4,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { useAuth } from "../../providers/Auth/AuthProvider";
-import { MenuDrawer } from "../molecules/MenuDrawer";
 import { BasicInputArea } from "../organisms/form/auth/BasicInputArea";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { ErrorMessage } from "../molecules/form/ErrorMessage";
-
-import {
-    CodeSandboxLogoIcon
-} from "@radix-ui/react-icons";
 
 interface LoginData {
     email: string;
@@ -50,12 +45,6 @@ export const Login = () => {
 
     return (
         <>
-            <header className="flex justify-between px-4 py-6 mx-auto bg-teal-400">
-                <div>
-                    <CodeSandboxLogoIcon />
-                </div>
-                <MenuDrawer />
-            </header>
             <div className="p-4 max-w-screen-sm mx-auto">
                 <h1 className="text-center text-xl font-bold pb-4">ログイン</h1>
                 <p className="text-center text-blue-600 hover:text-blue-400">
@@ -73,19 +62,24 @@ export const Login = () => {
                     <BasicInputArea
                         type="email"
                         id="email"
+                        label="email"
                         register={register}
+                        errors={errors}
                     />
                     <BasicInputArea
                         type="password"
                         id="password"
+                        label="password"
                         register={register}
+                        errors={errors}
                     />
 
-                    <ErrorMessage errors={errors} />
+                    <ErrorMessage id="submit" errors={errors} />
 
-                    <div className="text-center">
-                        <PrimaryButton type="submit" text="Login" />
-                    </div>
+                    <div className="text-right mt-10">
+<PrimaryButton type="submit" text="Login" />
+
+</div>
                 </form>
             </div>
         </>

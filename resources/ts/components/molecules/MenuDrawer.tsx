@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, VFC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import {
     ChevronRightIcon,
 } from "@radix-ui/react-icons";
 
-export const MenuDrawer = () => {
+export const MenuDrawer:VFC = memo(() => {
     const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
     const [urlsChecked, setUrlsChecked] = React.useState(false);
     const [person, setPerson] = React.useState("pedro");
@@ -48,4 +48,4 @@ export const MenuDrawer = () => {
             </DropdownMenu.Portal>
         </DropdownMenu.Root>
     );
-};
+});

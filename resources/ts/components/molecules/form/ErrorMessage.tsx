@@ -2,18 +2,18 @@ import { ReactNode, VFC } from "react";
 import { FieldErrors, FieldValues } from "react-hook-form";
 
 type Props = {
+    id: string;
     errors: FieldErrors<FieldValues>;
 };
 
 export const ErrorMessage: VFC<Props> = (props) => {
-    const { errors } = props;
+    const { id,errors } = props;
 
     const getErrorMessage = (text, errors) => {
         return errors[text] ?? "";
     };
 
-    const text = "submit";
-    const errorMessage = getErrorMessage(text, errors);
+    const errorMessage = getErrorMessage(id, errors);
 
     return (
         <>
