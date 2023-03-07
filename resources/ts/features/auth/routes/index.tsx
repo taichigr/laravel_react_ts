@@ -1,5 +1,5 @@
-import { Login } from "../components/pages/Login";
-import Register from "../components/pages/Register";
+import { Login } from "./Login";
+import Register from "./Register";
 
 type authRoute = {
     path: string;

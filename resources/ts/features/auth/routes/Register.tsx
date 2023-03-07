@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../providers/Auth/AuthProvider";
-import { BasicInputArea } from "../Form/BasicInputArea";
-import { ErrorMessage } from "../Form/ErrorMessage";
-import { PrimaryButton } from "../Elements/Button/PrimaryButton";
+import { useAuth } from "../../../providers/Auth/AuthProvider";
+import { BasicInputArea } from "../../../components/Form/BasicInputArea";
+import { ErrorMessage } from "../../../components/Form/ErrorMessage";
+import { PrimaryButton } from "../../../components/Elements/Button/PrimaryButton";
 
 interface EmailAndPasswordData {
     email: string;

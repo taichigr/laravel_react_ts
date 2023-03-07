@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../providers/Auth/AuthProvider";
+import { useAuth } from "../providers/Auth/AuthProvider";
 
 export const Home = () => {
     const history = useHistory();

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import { useAuth } from "../../providers/Auth/AuthProvider";
-import { BasicInputArea } from "../Form/BasicInputArea";
-import { PrimaryButton } from "../Elements/Button/PrimaryButton";
-import { ErrorMessage } from "../Form/ErrorMessage";
+import { useAuth } from "../../../providers/Auth/AuthProvider";
+import { BasicInputArea } from "../../../components/Form/BasicInputArea";
+import { PrimaryButton } from "../../../components/Elements/Button/PrimaryButton";
+import { ErrorMessage } from "../../../components/Form/ErrorMessage";
 
 interface LoginData {
     email: string;

@@ -1,10 +1,10 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { Page404 } from "../components/pages/Page404";
-import { Home } from "../components/pages/Home";
+import { Page404 } from "../pages/Page404";
+import { Home } from "../pages/Home";
 
 import { OnlyGuestRoute, PrivateRoute } from "../providers/Auth/AuthProvider";
-import { authRoutes } from "./AuthRouter";
+import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
 
 export const Router = () => {
