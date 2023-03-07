@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ProvideAuth from "./providers/Auth/AuthProvider";
-import { Router } from "./router/Router";
+import { Router } from "./routes/Router";
 
 const App = () => {
     // 編集

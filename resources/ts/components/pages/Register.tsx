@@ -4,9 +4,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/Auth/AuthProvider";
-import { BasicInputArea } from "../organisms/form/auth/BasicInputArea";
-import { ErrorMessage } from "../molecules/form/ErrorMessage";
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { BasicInputArea } from "../Form/BasicInputArea";
+import { ErrorMessage } from "../Form/ErrorMessage";
+import { PrimaryButton } from "../Elements/Button/PrimaryButton";
 
 interface EmailAndPasswordData {
     email: string;

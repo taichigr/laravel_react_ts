@@ -5,7 +5,7 @@ import { Home } from "../components/pages/Home";
 
 import { OnlyGuestRoute, PrivateRoute } from "../providers/Auth/AuthProvider";
 import { authRoutes } from "./AuthRouter";
-import { DefaultLayout } from "../components/templates/DefaultLayout";
+import { DefaultLayout } from "../components/Layout/DefaultLayout";
 
 export const Router = () => {
     return (
