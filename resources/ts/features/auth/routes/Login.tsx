@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import { useAuth } from "../../../providers/Auth/AuthProvider";
+import { useAuth } from "../../../lib/AuthProvider";
 import { BasicInputArea } from "../../../components/Form/BasicInputArea";
 import { PrimaryButton } from "../../../components/Elements/Button/PrimaryButton";
 import { ErrorMessage } from "../../../components/Form/ErrorMessage";

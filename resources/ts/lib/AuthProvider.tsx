@@ -52,11 +52,11 @@ interface From {
 
 const authContext = createContext<authProps | null>(null);
 
-const ProvideAuth = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
     const auth = useProvideAuth();
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
-export default ProvideAuth;
+
 
 export const useAuth = () => {
     return useContext(authContext);
