@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import { axios } from "./axios";
 import React, {
     useContext,
     createContext,
@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
 
+// 分離済み
 interface User {
     id: number;
     name: string;
@@ -18,6 +19,8 @@ interface User {
     created_at: string;
     updated_at: string | null;
 }
+
+// 分離済み
 interface LoginData {
     email: string;
     password: string;
@@ -56,7 +59,6 @@ export const AuthProvider = ({ children }: Props) => {
     const auth = useProvideAuth();
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
-
 
 export const useAuth = () => {
     return useContext(authContext);
@@ -114,7 +116,8 @@ const useProvideAuth = () => {
     };
 
     useEffect(() => {
-        axios.get("/api/user")
+        axios
+            .get("/api/user")
             .then((res) => {
                 setUser(res.data);
             })
@@ -162,7 +165,11 @@ export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
 /**
  * 認証していない場合のみアクセス可能（ログイン画面など）
  */
-export const OnlyGuestRoute = ({ children, path, exact = false }: RouteProps) => {
+export const OnlyGuestRoute = ({
+    children,
+    path,
+    exact = false,
+}: RouteProps) => {
     const auth = useAuth();
     const history = useHistory();
     return (

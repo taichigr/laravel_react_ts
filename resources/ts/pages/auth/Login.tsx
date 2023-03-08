@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { axios } from "../../lib/axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import { useAuth } from "../../../lib/AuthProvider";
-import { BasicInputArea } from "../../../components/Form/BasicInputArea";
-import { PrimaryButton } from "../../../components/Elements/Button/PrimaryButton";
-import { ErrorMessage } from "../../../components/Form/ErrorMessage";
+import { useAuth } from "../../lib/Auth";
+import { BasicInputArea } from "../../components/Form/BasicInputArea";
+import { PrimaryButton } from "../../components/Elements/Button/PrimaryButton";
+import { ErrorMessage } from "../../components/Form/ErrorMessage";
 
 interface LoginData {
     email: string;
@@ -77,9 +77,8 @@ export const Login = () => {
                     <ErrorMessage id="submit" errors={errors} />
 
                     <div className="text-right mt-10">
-<PrimaryButton type="submit" text="Login" />
-
-</div>
+                        <PrimaryButton type="submit" text="Login" />
+                    </div>
                 </form>
             </div>
         </>

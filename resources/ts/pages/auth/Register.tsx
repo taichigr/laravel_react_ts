@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { axios } from "../../lib/axios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../lib/AuthProvider";
-import { BasicInputArea } from "../../../components/Form/BasicInputArea";
-import { ErrorMessage } from "../../../components/Form/ErrorMessage";
-import { PrimaryButton } from "../../../components/Elements/Button/PrimaryButton";
+import { useAuth } from "../../lib/Auth";
+import { BasicInputArea } from "../../components/Form/BasicInputArea";
+import { ErrorMessage } from "../../components/Form/ErrorMessage";
+import { PrimaryButton } from "../../components/Elements/Button/PrimaryButton";
 
 interface EmailAndPasswordData {
     email: string;

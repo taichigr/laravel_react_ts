@@ -1,7 +1,7 @@
-import axios from "axios";
+import { axios } from "../lib/axios";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../lib/AuthProvider";
+import { useAuth } from "../lib/Auth";
 
 export const Home = () => {
     const history = useHistory();

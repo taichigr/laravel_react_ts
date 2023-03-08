@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Page404 } from "../pages/Page404";
 import { Home } from "../pages/Home";
 
-import { OnlyGuestRoute, PrivateRoute } from "../lib/AuthProvider";
+import { OnlyGuestRoute, PrivateRoute } from "../lib/Auth";
 import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
 
