@@ -7,33 +7,9 @@ import React, {
     useEffect,
 } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
+import { LoginData, ProfileData, RegisterData, User } from "../features/auth/types";
 
-// 分離済み
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string | null;
-    two_factor_recovery_codes: string | null;
-    two_factor_secret: string | null;
-    created_at: string;
-    updated_at: string | null;
-}
 
-// 分離済み
-interface LoginData {
-    email: string;
-    password: string;
-}
-interface RegisterData {
-    email: string;
-    password: string;
-    password_confirmation: string;
-}
-interface ProfileData {
-    name?: string;
-    email?: string;
-}
 interface authProps {
     user: User | null;
     register: (registerData: RegisterData) => Promise<void>;
