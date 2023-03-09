@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import { axios } from "./axios";
 import React, {
     useContext,
     createContext,
@@ -7,30 +7,9 @@ import React, {
     useEffect,
 } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
+import { LoginData, ProfileData, RegisterData, User } from "../features/auth/types";
 
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string | null;
-    two_factor_recovery_codes: string | null;
-    two_factor_secret: string | null;
-    created_at: string;
-    updated_at: string | null;
-}
-interface LoginData {
-    email: string;
-    password: string;
-}
-interface RegisterData {
-    email: string;
-    password: string;
-    password_confirmation: string;
-}
-interface ProfileData {
-    name?: string;
-    email?: string;
-}
+
 interface authProps {
     user: User | null;
     register: (registerData: RegisterData) => Promise<void>;
@@ -52,11 +31,10 @@ interface From {
 
 const authContext = createContext<authProps | null>(null);
 
-const ProvideAuth = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
     const auth = useProvideAuth();
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
-export default ProvideAuth;
 
 export const useAuth = () => {
     return useContext(authContext);
@@ -114,7 +92,8 @@ const useProvideAuth = () => {
     };
 
     useEffect(() => {
-        axios.get("/api/user")
+        axios
+            .get("/api/user")
             .then((res) => {
                 setUser(res.data);
             })
@@ -162,7 +141,11 @@ export const PrivateRoute = ({ children, path, exact = false }: RouteProps) => {
 /**
  * 認証していない場合のみアクセス可能（ログイン画面など）
  */
-export const OnlyGuestRoute = ({ children, path, exact = false }: RouteProps) => {
+export const OnlyGuestRoute = ({
+    children,
+    path,
+    exact = false,
+}: RouteProps) => {
     const auth = useAuth();
     const history = useHistory();
     return (

@@ -1,8 +1,8 @@
 import { ReactNode, VFC } from "react";
 
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from "react-hook-form";
-import { BasicInput } from "../../../molecules/form/BasicInput";
-import { ErrorMessage } from "../../../molecules/form/ErrorMessage";
+import { BasicInput } from "./BasicInput";
+import { ErrorMessage } from "./ErrorMessage";
 
 type Props = {
     type: string;

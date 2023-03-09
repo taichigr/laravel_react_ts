@@ -4,7 +4,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "react-router-dom";
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { useAuth } from "../../providers/Auth/AuthProvider";
+import { useAuth } from "../../../lib/Auth";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
