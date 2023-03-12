@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('publisher');
             $table->date('published_date');
             $table->string('ISBN');
+            $table->string('image_url');
             $table->timestamps();
         });
     }
