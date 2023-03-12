@@ -6,6 +6,7 @@ import { Home } from "../pages/Home";
 import { OnlyGuestRoute, PrivateRoute } from "../lib/Auth";
 import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
+import { SearchBooks } from "../pages/SearchBooks";
 
 export const Router = () => {
     return (
@@ -28,7 +29,7 @@ export const Router = () => {
                         if (authenticate == "private") {
                             return (
                                 <PrivateRoute path={path} exact={exact}>
-                                    {children}
+                                    <DefaultLayout>{children}</DefaultLayout>
                                 </PrivateRoute>
                             );
                         }
@@ -39,6 +40,11 @@ export const Router = () => {
                             <Home />
                         </DefaultLayout>
                     </PrivateRoute>
+                    <Route path="/search" exact="true">
+                        <DefaultLayout>
+                            <SearchBooks />
+                        </DefaultLayout>
+                    </Route>
                     <Route path="*">
                         <Page404 />
                     </Route>
