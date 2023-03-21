@@ -7,6 +7,7 @@ import { OnlyGuestRoute, PrivateRoute } from "../lib/Auth";
 import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
 import { SearchBooks } from "../pages/SearchBooks";
+import { BookDetail } from "../pages/book/BookDetail";
 
 export const Router = () => {
     return (
@@ -43,6 +44,11 @@ export const Router = () => {
                     <Route path="/search" exact="true">
                         <DefaultLayout>
                             <SearchBooks />
+                        </DefaultLayout>
+                    </Route>
+                    <Route path="/book/:id" exact="true">
+                        <DefaultLayout>
+                            <BookDetail />
                         </DefaultLayout>
                     </Route>
                     <Route path="*">

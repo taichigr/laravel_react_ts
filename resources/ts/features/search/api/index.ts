@@ -1,6 +1,6 @@
 import { axios } from "../../../lib/axios";
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { VolumesResponse } from "../types";
+import { Volume, VolumesResponse } from "../types";
 
 
 export const fetchBookList = (word: string) => {
