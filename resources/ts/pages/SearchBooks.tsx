@@ -8,6 +8,9 @@ import { Volume } from "../features/search/types";
 import { BookCard } from "../features/search/components/BookCard";
 
 export const SearchBooks = memo(() => {
+    const history = useHistory();
+    const auth = useAuth();
+
     const [inputWord, setInputWord] = useState("");
     const [bookList, setBookList] = useState<Volume[]>([]);
 
@@ -18,8 +21,9 @@ export const SearchBooks = memo(() => {
         }
     };
 
-    const history = useHistory();
-    const auth = useAuth();
+    // 必要情報があるかどうかのバリデーションをかける必要あり
+    // エラーワード　豆腐
+
 
     return (
         <div className="p-2 max-w-screen-sm mx-auto">
