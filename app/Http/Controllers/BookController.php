@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Book\UpdateReadingStatusRequest;
+use App\Models\Book;
+use App\Models\ReadingRecord;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -18,7 +22,6 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // ここを編集
     public function store(Request $request): Response
     {
         //
@@ -47,5 +50,44 @@ class BookController extends Controller
     public function destroy(string $id): Response
     {
         //
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return Response
+     */
+    // public function updateReadingStatus(Request $request): Response
+    public function updateReadingStatus(UpdateReadingStatusRequest $request)
+    {
+        $user = $request->user();
+    
+        $book = Book::firstOrCreate(
+            ['google_book_id' => $request->bookId],
+            [
+                'title' => $request->title,
+                'author' => $request->author,
+                'publisher' => $request->publisher,
+                'image_url' => $request->imageUrl,
+            ]
+        );
+    
+        $readingRecord = ReadingRecord::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'book_id' => $book->id,
+            ],
+            [
+                'read_date' => now()->format('Y-m-d H:i:s'),
+                'status' => $request->status,
+            ]
+        );
+    
+        return response()->json([
+            'message' => 'Reading status updated successfully',
+            'readingRecord' => $readingRecord,
+        ]);
     }
 }
