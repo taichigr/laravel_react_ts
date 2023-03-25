@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->date('read_date');
-            $table->integer('reading_status');
+            $table->timestamp('read_date');
+            $table->enum('status', ['to_read', 'reading', 'finished', 'unread']);
             $table->timestamps();
         });
     }
