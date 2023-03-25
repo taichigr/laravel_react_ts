@@ -1,40 +1,13 @@
-import React, { memo, useEffect, useState } from "react";
-import { useHistory, useParams, Link } from "react-router-dom";
-import { useAuth } from "../../lib/Auth";
-import { fetchBookDetail } from "../../features/bookDetail/api";
-import {
-    getId,
-    getPrefixedIdentifier,
-    presentAuthor,
-    presentText,
-    trimText,
-} from "../../utils/book/Format";
-import { BookVolume } from "../../features/bookDetail/type";
-import { PrimaryButton } from "../../components/Elements";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { presentAuthor, presentText } from "../../utils/book/Format";
+import { SelectBookStatus } from "../../features/bookDetail/components/SelectBookStatus";
+import { useFetchBookDetail } from "../../features/bookDetail/hooks/useFetchBookDetail";
 
-export const BookDetail = memo(() => {
-    const history = useHistory();
-    const auth = useAuth();
+export const BookDetail = () => {
+    const { bookDetail } = useFetchBookDetail();
 
-    const [bookDetail, setBookDetail] = useState<BookVolume>();
     const urlParams = useParams<{ id: string }>();
-
-    const fetchBook = async (id: string) => {
-        try {
-            const { data } = await fetchBookDetail(id);
-            setBookDetail(data);
-        } catch (error) {
-            console.log("Error fetching book:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchBook(urlParams.id);
-    }, [urlParams.id]);
-
-    console.log(bookDetail);
-
-    // getPrefixedIdentifier(bookDetail.volumeInfo.industryIdentifiers);
 
     return (
         <>
@@ -63,8 +36,19 @@ export const BookDetail = memo(() => {
                     </div>
                     <div className="mt-4">
                         <div>
-                            <PrimaryButton type='button' text='本棚に登録する' />
-                            {/* モーダルを出して、読みたい、読んでいる途中、読み終わった、積読を選ばせる */}
+                            <br />
+                            <SelectBookStatus
+                                bookId={bookDetail.id}
+                                title={bookDetail.volumeInfo.title}
+                                author={presentAuthor(
+                                    bookDetail.volumeInfo.authors
+                                )}
+                                publisher={bookDetail.volumeInfo.publisher}
+                                imageUrl={
+                                    bookDetail.volumeInfo.imageLinks
+                                        ?.smallThumbnail
+                                }
+                            />
                         </div>
                     </div>
                     <div className="p-2 mt-4">
@@ -79,4 +63,4 @@ export const BookDetail = memo(() => {
             )}
         </>
     );
-});
+};
