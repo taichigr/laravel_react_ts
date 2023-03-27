@@ -24,3 +24,11 @@ export const updateReadingStatus = (
     imageUrl,
   });
 };
+
+export const checkUserBookRecord = (bookId: string) => {
+    return axios.get<{ exists: boolean, status: string | null }>(`/api/book/check_record`, {
+        params: {
+            book_id: bookId,
+        },
+    });
+};
