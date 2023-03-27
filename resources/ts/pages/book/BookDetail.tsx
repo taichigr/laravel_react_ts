@@ -1,13 +1,22 @@
-import React from "react";
+import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import { presentAuthor, presentText } from "../../utils/book/Format";
 import { SelectBookStatus } from "../../features/bookDetail/components/SelectBookStatus";
 import { useFetchBookDetail } from "../../features/bookDetail/hooks/useFetchBookDetail";
+import { useAuth } from "../../lib/Auth";
+import { useCheckUserBookRecord } from "../../features/bookDetail/hooks/useCheckUserBookRecord";
 
-export const BookDetail = () => {
+export const BookDetail = memo(() => {
     const { bookDetail } = useFetchBookDetail();
+    const auth = useAuth();
+    const userId = auth.user ? auth.user.id : 0;
+    const bookId = bookDetail ? bookDetail.id : "";
+    const { recordExists, recordStatus } = useCheckUserBookRecord(
+        userId,
+        bookId
+    );
 
-    const urlParams = useParams<{ id: string }>();
+    console.log(recordExists,recordStatus);
 
     return (
         <>
@@ -48,6 +57,7 @@ export const BookDetail = () => {
                                     bookDetail.volumeInfo.imageLinks
                                         ?.smallThumbnail
                                 }
+                                defaultStatus={recordStatus}
                             />
                         </div>
                     </div>
@@ -63,4 +73,4 @@ export const BookDetail = () => {
             )}
         </>
     );
-};
+});
