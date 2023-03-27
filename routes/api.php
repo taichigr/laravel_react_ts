@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/book/reading_status', [BookController::class, 'updateReadingStatus']);
+    Route::get('/book/check_record', [BookController::class, 'checkRecord']);
 });
