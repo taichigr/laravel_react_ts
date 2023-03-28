@@ -9,7 +9,7 @@ interface Props {
     imageUrl: string;
 }
 
-export const useSelectBookStatus = ({
+export const useUpdateBookStatus = ({
     bookId,
     title,
     author,
@@ -23,6 +23,10 @@ export const useSelectBookStatus = ({
     ) => {
         const status = event.target.value;
         setSelectedValue(status);
+
+
+        // ログイン状態の時はモーダルを出す
+        // ログイン状態のによって値を
 
         try {
             await updateReadingStatus(

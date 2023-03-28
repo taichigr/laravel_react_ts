@@ -11,7 +11,6 @@ class UpdateReadingStatusAction
     public function __invoke(UpdateReadingStatusRequest $request)
     {
         $user = $request->user();
-        Log::info($user);
 
         $book = Book::firstOrCreate(
             ['google_book_id' => $request->bookId],
