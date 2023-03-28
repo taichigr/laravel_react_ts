@@ -19,9 +19,7 @@ export const useCheckUserBookRecord = (
                     return;
                 }
 
-                console.log(bookId, userId);
                 const { data } = await checkUserBookRecord(bookId);
-                console.log(data)
                 setRecordExists(data.exists);
                 setRecordStatus(data.status);
             } catch (error) {

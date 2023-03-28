@@ -16,8 +16,6 @@ export const BookDetail = memo(() => {
         bookId
     );
 
-    console.log(recordExists,recordStatus);
-
     return (
         <>
             {bookDetail && (
