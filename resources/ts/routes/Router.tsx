@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { Page404 } from "../pages/Page404";
-import { Home } from "../pages/Home";
+import { Mypage } from "../pages/Mypage";
 
 import { OnlyGuestRoute, PrivateRoute } from "../lib/Auth";
 import { authRoutes } from "../features/auth/routes";
@@ -38,7 +38,7 @@ export const Router = () => {
 
                     <PrivateRoute path="/mypage">
                         <DefaultLayout>
-                            <Home />
+                            <Mypage />
                         </DefaultLayout>
                     </PrivateRoute>
                     <Route path="/search" exact="true">

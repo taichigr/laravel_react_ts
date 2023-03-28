@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../lib/Auth";
 import { fetchBookList } from "../features/search/api";
 
-export const Home = () => {
+export const Mypage = () => {
     const [inputValue, setInputValue] = useState();
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
