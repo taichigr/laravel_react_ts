@@ -1,10 +1,9 @@
 import React, { memo, useState, VFC } from "react";
 import { useHistory } from "react-router-dom";
-import { IndustryIdentifier, Volume } from "../types";
+import { Volume } from "../types";
 import { Link } from "react-router-dom";
 import {
     getId,
-    getPrefixedIdentifier,
     presentAuthor,
     presentText,
     trimText,
@@ -18,8 +17,6 @@ export const BookCard: VFC<Props> = memo((props) => {
     const history = useHistory();
     const { item } = props;
 
-    // 詳細に行く時は、APIで一冊分を叩くのではなく、すでにとっている情報をそのまま使う。
-    // 最終的に保存されるタイミングがあればその時に、API詳細のURLを保存する（使うタイミングがわからんが）
     return (
         <>
             <div className="flex bg-white border border-gray-200 rounded-lg shadow h-56 items-center">
@@ -45,5 +42,3 @@ export const BookCard: VFC<Props> = memo((props) => {
         </>
     );
 });
-
-// 出版年度
