@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReadingListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/book/reading_status', [BookController::class, 'updateReadingStatus']);
     Route::get('/book/check_record', [BookController::class, 'checkRecord']);
+
+    Route::get('/mypage/reading-list/{status?}', [ReadingListController::class, 'fetchBooks']);
+
 });
