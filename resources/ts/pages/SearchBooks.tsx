@@ -6,21 +6,20 @@ import { PrimaryOnClickButton } from "../components/Elements/Button/PrimaryOnCli
 import { InputField } from "../components/Elements/Input";
 import { Volume } from "../features/search/types";
 import { BookCard } from "../features/search/components/BookCard";
+import {
+    saveWithExpiration,
+    loadWithExpiration,
+} from "../features/search/utils/localStorageHelper";
 
 export const SearchBooks = memo(() => {
     const history = useHistory();
     const auth = useAuth();
 
-    const savedSearchWord = JSON.parse(
-        localStorage.getItem("searchWord") || "{}"
+    const [inputWord, setInputWord] = useState(
+        loadWithExpiration("searchWord") || ""
     );
-    const savedSearchResult = JSON.parse(
-        localStorage.getItem("searchResult") || "{}"
-    );
-
-    const [inputWord, setInputWord] = useState(savedSearchWord.value || "");
     const [bookList, setBookList] = useState<Volume[]>(
-        savedSearchResult.value || []
+        loadWithExpiration("searchResult") || []
     );
 
     const search = async (word: string) => {
@@ -31,28 +30,10 @@ export const SearchBooks = memo(() => {
     };
 
     useEffect(() => {
-        const expirationTime = Date.now() + 86400000;
-        localStorage.setItem(
-            "searchWord",
-            JSON.stringify({ value: inputWord, expiration: expirationTime })
-        );
-        localStorage.setItem(
-            "searchResult",
-            JSON.stringify({ value: bookList, expiration: expirationTime })
-        );
+        const expirationTime = 86400000; // 1日後の時刻
+        saveWithExpiration("searchWord", inputWord, expirationTime);
+        saveWithExpiration("searchResult", bookList, expirationTime);
     }, [inputWord, bookList]);
-
-    useEffect(() => {
-        const checkExpiration = (key: string) => {
-            const data = JSON.parse(localStorage.getItem(key) || "{}");
-            if (data.expiration && data.expiration < Date.now()) {
-                localStorage.removeItem(key);
-            }
-        };
-
-        checkExpiration("searchWord");
-        checkExpiration("searchResult");
-    }, []);
 
     return (
         <div className="p-2 max-w-screen-sm mx-auto">
