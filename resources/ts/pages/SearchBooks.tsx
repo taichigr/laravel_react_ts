@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../lib/Auth";
 import { fetchBookList } from "../features/search/api";
@@ -11,8 +11,17 @@ export const SearchBooks = memo(() => {
     const history = useHistory();
     const auth = useAuth();
 
-    const [inputWord, setInputWord] = useState("");
-    const [bookList, setBookList] = useState<Volume[]>([]);
+    const savedSearchWord = JSON.parse(
+        localStorage.getItem("searchWord") || "{}"
+    );
+    const savedSearchResult = JSON.parse(
+        localStorage.getItem("searchResult") || "{}"
+    );
+
+    const [inputWord, setInputWord] = useState(savedSearchWord.value || "");
+    const [bookList, setBookList] = useState<Volume[]>(
+        savedSearchResult.value || []
+    );
 
     const search = async (word: string) => {
         const response = await fetchBookList(word);
@@ -21,9 +30,29 @@ export const SearchBooks = memo(() => {
         }
     };
 
-    // 必要情報があるかどうかのバリデーションをかける必要あり
-    // エラーワード　豆腐
+    useEffect(() => {
+        const expirationTime = Date.now() + 86400000;
+        localStorage.setItem(
+            "searchWord",
+            JSON.stringify({ value: inputWord, expiration: expirationTime })
+        );
+        localStorage.setItem(
+            "searchResult",
+            JSON.stringify({ value: bookList, expiration: expirationTime })
+        );
+    }, [inputWord, bookList]);
 
+    useEffect(() => {
+        const checkExpiration = (key: string) => {
+            const data = JSON.parse(localStorage.getItem(key) || "{}");
+            if (data.expiration && data.expiration < Date.now()) {
+                localStorage.removeItem(key);
+            }
+        };
+
+        checkExpiration("searchWord");
+        checkExpiration("searchResult");
+    }, []);
 
     return (
         <div className="p-2 max-w-screen-sm mx-auto">
@@ -34,6 +63,7 @@ export const SearchBooks = memo(() => {
                         type="text"
                         id="input_word"
                         label="search word"
+                        value={inputWord}
                         onChange={(event) => setInputWord(event.target.value)}
                     />
                     <div className="text-right">
