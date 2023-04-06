@@ -24,10 +24,6 @@ export const useUpdateBookStatus = ({
         const status = event.target.value;
         setSelectedValue(status);
 
-
-        // ログイン状態の時はモーダルを出す
-        // ログイン状態のによって値を
-
         try {
             await updateReadingStatus(
                 status,
