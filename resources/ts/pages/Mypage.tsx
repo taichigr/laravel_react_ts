@@ -10,6 +10,7 @@ import { axios } from "../lib/axios";
 export const Mypage = memo(() => {
     const [selectedValue, setSelectedValue] = useState<string>("");
     const [userBookList, setUserBookList] = useState<ReadingRecord[]>([]);
+    const [bookCount, setBookCount] = useState<number>(0);
 
     const history = useHistory();
     const auth = useAuth();
@@ -17,7 +18,8 @@ export const Mypage = memo(() => {
     const fetchUserBookList = async (status: string) => {
         try {
             const { data } = await fetchUserBookListApi(status);
-            setUserBookList(data);
+            setUserBookList(data.readingRecords);
+            setBookCount(data.bookCount);
         } catch (error) {
             console.log("Error fetching book:", error);
         }
@@ -39,7 +41,8 @@ export const Mypage = memo(() => {
                 <UserProfile name={auth.user.name} />
             </div>
             <div className="p-2 max-w-screen-sm mx-auto">
-                <p>登録した本</p>
+                <p className="my-2">登録した本</p>
+                <p className="my-2">{bookCount}冊</p>
                 <select
                     value={selectedValue || ""}
                     onChange={onChangeReadingStatus}
@@ -60,3 +63,4 @@ export const Mypage = memo(() => {
         </>
     );
 });
+Ï
