@@ -21,6 +21,6 @@ export interface RegisterData {
 }
 
 export interface ProfileData {
-    name?: string;
-    email?: string;
-}
+    name: string;
+    email: string;
+  }

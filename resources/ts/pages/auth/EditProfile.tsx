@@ -5,6 +5,7 @@ import { useAuth } from "../../lib/Auth";
 import { InputField } from "../../components/Elements/Input";
 import { PrimaryButton } from "../../components/Elements";
 import { ProfileData } from "../../features/auth/types";
+import { validateProfileForm } from "../../features/auth/validation";
 
 export const EditProfile = memo(() => {
     const auth = useAuth();
@@ -13,6 +14,10 @@ export const EditProfile = memo(() => {
 
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
+    const [errors, setErrors] = useState<{
+        name: string | null;
+        email: string | null;
+    }>({ name: null, email: null });
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -25,11 +30,15 @@ export const EditProfile = memo(() => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData: ProfileData = { name, email };
+        const validationResult = await validateProfileForm(formData);
+
+        if (validationResult.name || validationResult.email) {
+            setErrors(validationResult);
+            return;
+        }
+
         auth.updateProfile(formData);
         history.push("/mypage");
-
-
-        // 帰宅後。プロフィールのバリデーション
     };
 
     return (
@@ -42,6 +51,7 @@ export const EditProfile = memo(() => {
                     label="ユーザー名"
                     value={name}
                     onChange={handleNameChange}
+                    error={errors.name}
                 />
                 <InputField
                     type="email"
@@ -49,6 +59,7 @@ export const EditProfile = memo(() => {
                     label="メールアドレス"
                     value={email}
                     onChange={handleEmailChange}
+                    error={errors.email}
                 />
                 <div className="flex items-center justify-between mt-2">
                     <PrimaryButton type="submit" text="更新" />
