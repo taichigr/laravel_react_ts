@@ -8,6 +8,8 @@ import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
 import { SearchBooks } from "../pages/SearchBooks";
 import { BookDetail } from "../pages/book/BookDetail";
+import { EditProfile } from "../pages/auth/EditProfile";
+import { Profile } from "../pages/auth/Profile";
 
 export const Router = () => {
     return (
@@ -39,6 +41,19 @@ export const Router = () => {
                     <PrivateRoute path="/mypage">
                         <DefaultLayout>
                             <Mypage />
+                        </DefaultLayout>
+                    </PrivateRoute>
+                    {/* プロフィール確認ページ */}
+                    <PrivateRoute path="/profile" exact>
+                        <DefaultLayout>
+                            <Profile />
+                        </DefaultLayout>
+                    </PrivateRoute>
+
+                    {/* プロフィール編集ページ */}
+                    <PrivateRoute path="/profile/edit" exact>
+                        <DefaultLayout>
+                            <EditProfile />
                         </DefaultLayout>
                     </PrivateRoute>
                     <Route path="/search" exact="true">

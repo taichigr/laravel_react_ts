@@ -58,6 +58,11 @@ export const MenuDrawer: VFC = memo(() => {
                     )}
                     {auth.user && (
                         <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
+                            <Link to="/search">本を検索</Link>
+                        </DropdownMenu.Item>
+                    )}
+                    {auth.user && (
+                        <DropdownMenu.Item className="text-base p-4 mx-4 md:ml-0 outline-none">
                             <button onClick={logout}>logout</button>
                         </DropdownMenu.Item>
                     )}

@@ -38,23 +38,25 @@ export const Mypage = memo(() => {
             <div className="p-2 max-w-screen-sm mx-auto">
                 <UserProfile name={auth.user.name} />
             </div>
-            <div>
+            <div className="p-2 max-w-screen-sm mx-auto">
                 <p>登録した本</p>
                 <select
                     value={selectedValue || ""}
                     onChange={onChangeReadingStatus}
                     className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 >
-                    <option value="">未選択</option>
+                    <option value="">全部</option>
                     <option value="to_read">読みたい</option>
                     <option value="reading">読んでいる途中</option>
                     <option value="finished">読み終わった</option>
                     <option value="unread">積読</option>
                 </select>
             </div>
-            {userBookList.map((item, index) => (
-                <ReadingRecordItemCard key={index} record={item} />
-            ))}
+            <div className="p-2 max-w-screen-sm mx-auto">
+                {userBookList.map((item, index) => (
+                    <ReadingRecordItemCard key={index} record={item} />
+                ))}
+            </div>
         </>
     );
 });

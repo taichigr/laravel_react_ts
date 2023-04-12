@@ -15,7 +15,7 @@ interface authProps {
     register: (registerData: RegisterData) => Promise<void>;
     signin: (loginData: LoginData) => Promise<void>;
     signout: () => Promise<void>;
-    saveProfile: (formData: FormData | ProfileData) => Promise<void>;
+    updateProfile: (formData: FormData | ProfileData) => Promise<void>;
 }
 interface Props {
     children: ReactNode;
@@ -71,7 +71,7 @@ const useProvideAuth = () => {
         });
     };
 
-    const saveProfile = async (formData: FormData | ProfileData) => {
+    const updateProfile = async (formData: ProfileData) => {
         const res = await axios
             .post("/api/user/profile-information", formData, {
                 headers: { "X-HTTP-Method-Override": "PUT" },
@@ -107,7 +107,7 @@ const useProvideAuth = () => {
         register,
         signin,
         signout,
-        saveProfile,
+        updateProfile,
     };
 };
 

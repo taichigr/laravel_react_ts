@@ -26,4 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/mypage/reading-list/{status?}', [ReadingListController::class, 'fetchBooks']);
 
+    // プロフィール情報取得API
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
+
 });

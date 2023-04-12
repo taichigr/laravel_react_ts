@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
     id: number;
     name: string;
     email: string;
@@ -7,18 +7,20 @@ export type User = {
     two_factor_secret: string | null;
     created_at: string;
     updated_at: string | null;
-};
+}
 
-export type LoginData = {
+export interface LoginData {
     email: string;
     password: string;
-};
-export type RegisterData = {
+}
+
+export interface RegisterData {
     email: string;
     password: string;
     password_confirmation: string;
-};
-export type ProfileData = {
-    name?: string;
-    email?: string;
-};
+}
+
+export interface ProfileData {
+    name: string;
+    email: string;
+  }
