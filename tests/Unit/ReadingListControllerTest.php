@@ -36,6 +36,9 @@ class ReadingListControllerTest extends TestCase
         $response->assertStatus(200);
 
         // Check if the returned reading records have the correct status
-        $response->assertJsonPath('0.id', $readingRecord->id);
+        $response->assertJsonPath('readingRecords.0.id', $readingRecord->id);
+
+        // Check if the book count is returned in the response
+        $response->assertJsonPath('bookCount', 1);
     }
 }

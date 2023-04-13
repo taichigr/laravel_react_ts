@@ -20,20 +20,27 @@ class ReadingListController extends Controller
     {
         $status = $request->status;
         $user = auth()->user();
-    
+
         // クエリビルダーのインスタンスを作成
         $query = ReadingRecord::query()
             ->where('user_id', $user->id)
             ->with('book');
-    
+
         // ステータスが設定されている場合、ステータスでフィルタリング
         if ($status) {
             $query->where('status', $status);
         }
-    
+
+        // 本の件数を取得
+        $bookCount = $query->count();
+
         // クエリを実行し、結果を取得
         $readingRecords = $query->get();
-    
-        return response()->json($readingRecords);
+
+        // 件数も含めてレスポンスを返す
+        return response()->json([
+            'readingRecords' => $readingRecords,
+            'bookCount' => $bookCount,
+        ]);
     }
 }
