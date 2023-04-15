@@ -29,4 +29,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // プロフィール情報取得API
     // Route::get('/profile', [ProfileController::class, 'getProfile']);
 
+    // review機能
+    Route::post('/reviews', [ReviewController::class, 'store']);
+    Route::put('/reviews/{review}', [ReviewController::class, 'update']);
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+
 });
