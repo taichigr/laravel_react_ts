@@ -42,29 +42,31 @@ export const EditProfile = memo(() => {
     };
 
     return (
-        <div className="bg-white p-6 border border-gray-200 rounded-lg shadow-md w-full max-w-md mx-auto">
-            <h1 className="text-2xl font-bold mb-6">プロフィール編集</h1>
-            <form onSubmit={handleSubmit}>
-                <InputField
-                    type="text"
-                    id="name"
-                    label="ユーザー名"
-                    value={name}
-                    onChange={handleNameChange}
-                    error={errors.name}
-                />
-                <InputField
-                    type="email"
-                    id="email"
-                    label="メールアドレス"
-                    value={email}
-                    onChange={handleEmailChange}
-                    error={errors.email}
-                />
-                <div className="flex items-center justify-between mt-2">
-                    <PrimaryButton type="submit" text="更新" />
-                </div>
-            </form>
+        <div className="p-2 max-w-screen-sm mx-auto mt-4">
+            <div className="bg-white p-6 border border-gray-200 rounded-lg shadow-md w-full max-w-md mx-auto">
+                <h1 className="text-2xl font-bold mb-6">プロフィール編集</h1>
+                <form onSubmit={handleSubmit}>
+                    <InputField
+                        type="text"
+                        id="name"
+                        label="ユーザー名"
+                        value={name}
+                        onChange={handleNameChange}
+                        error={errors.name}
+                    />
+                    <InputField
+                        type="email"
+                        id="email"
+                        label="メールアドレス"
+                        value={email}
+                        onChange={handleEmailChange}
+                        error={errors.email}
+                    />
+                    <div className="flex items-center justify-between mt-2">
+                        <PrimaryButton type="submit" text="更新" />
+                    </div>
+                </form>
+            </div>
         </div>
     );
 });
