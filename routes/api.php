@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReadingListController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::get('/profile', [ProfileController::class, 'getProfile']);
 
     // review機能
-    Route::post('/reviews', [ReviewController::class, 'store']);
-    Route::put('/reviews/{review}', [ReviewController::class, 'update']);
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+    Route::post('/reviews/{book}', [ReviewController::class, 'storeOrUpdate'])->name('reviews.storeOrUpdate');
+
 
 });
