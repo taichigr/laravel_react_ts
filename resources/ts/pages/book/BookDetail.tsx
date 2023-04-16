@@ -6,6 +6,8 @@ import { useFetchBookDetail } from "../../features/bookDetail/hooks/useFetchBook
 import { useAuth } from "../../lib/Auth";
 import { useCheckUserBookRecord } from "../../features/bookDetail/hooks/useCheckUserBookRecord";
 
+import { Link } from "react-router-dom";
+
 export const BookDetail = memo(() => {
     const { bookDetail } = useFetchBookDetail();
     const auth = useAuth();
@@ -33,17 +35,16 @@ export const BookDetail = memo(() => {
                             />
                         </div>
                         <div className="p-2 leading-normal w-3/5 h-full">
-                            <h5 className="bold">
+                            <h5 className="font-bold text-gray-800">
                                 {presentText(bookDetail.volumeInfo.title)}
                             </h5>
-                            <p>
+                            <p className="text-gray-700">
                                 {presentAuthor(bookDetail.volumeInfo.authors)}
                             </p>
                         </div>
                     </div>
                     <div className="mt-4">
                         <div>
-                            <br />
                             <SelectBookStatus
                                 bookId={bookDetail.id}
                                 title={bookDetail.volumeInfo.title}
@@ -57,6 +58,14 @@ export const BookDetail = memo(() => {
                                 }
                                 defaultStatus={recordStatus}
                             />
+                        </div>
+                        <div className="my-4">
+                            <Link
+                                to={`/book/review/${bookDetail.id}`}
+                                className="bg-teal-500 text-white font-semibold py-2 px-4 rounded hover:bg-teal-600"
+                            >
+                                レビューを書く
+                            </Link>
                         </div>
                     </div>
                     <div className="p-2 mt-4">
