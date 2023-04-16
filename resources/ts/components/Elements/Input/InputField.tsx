@@ -15,7 +15,7 @@ export const InputField: VFC<Props> = (props) => {
         <>
             <div className="py-4">
                 <label
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-gray-800 text-sm font-semibold mb-2"
                     htmlFor={id}
                 >
                     {label}
