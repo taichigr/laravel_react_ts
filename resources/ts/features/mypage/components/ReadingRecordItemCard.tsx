@@ -21,7 +21,7 @@ export const ReadingRecordItemCard: VFC<Props> = ({ record }) => {
 
       <div className="p-2 leading-normal w-3/5 h-full">
         <h3 className="bold text-xl p-1 text-teal-500 hover:text-blue-500">
-          <Link to={`/book/${record.book.google_book_id}`}>
+          <Link to={`/book/${record.book.google_books_id}`}>
             {trimText(record.book.title, 50)}
           </Link>
         </h3>

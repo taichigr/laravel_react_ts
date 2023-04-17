@@ -13,7 +13,7 @@ class UpdateReadingStatusAction
         $user = $request->user();
 
         $book = Book::firstOrCreate(
-            ['google_book_id' => $request->bookId],
+            ['google_books_id' => $request->googleBooksId],
             [
                 'title' => $request->title,
                 'author' => $request->author,

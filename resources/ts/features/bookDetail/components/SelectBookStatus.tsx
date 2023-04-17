@@ -3,7 +3,7 @@ import { useAuth } from "../../../lib/Auth";
 import { useUpdateBookStatus } from "../hooks/useUpdateBookStatus";
 
 interface Props {
-    bookId: string;
+    googleBooksId: string;
     title: string;
     author: string;
     publisher: string;
@@ -12,11 +12,11 @@ interface Props {
 }
 
 export const SelectBookStatus = memo(
-    ({ bookId, title, author, publisher, imageUrl, defaultStatus }: Props) => {
+    ({ googleBooksId, title, author, publisher, imageUrl, defaultStatus }: Props) => {
         const auth = useAuth();
 
         const { selectedValue, handleChange } = useUpdateBookStatus({
-            bookId,
+            googleBooksId,
             title,
             author,
             publisher,

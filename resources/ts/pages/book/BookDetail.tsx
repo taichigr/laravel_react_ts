@@ -46,7 +46,7 @@ export const BookDetail = memo(() => {
                     <div className="mt-4">
                         <div>
                             <SelectBookStatus
-                                bookId={bookDetail.id}
+                                googleBooksId={bookDetail.id}
                                 title={bookDetail.volumeInfo.title}
                                 author={presentAuthor(
                                     bookDetail.volumeInfo.authors

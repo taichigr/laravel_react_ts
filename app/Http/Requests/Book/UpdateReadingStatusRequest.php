@@ -28,7 +28,7 @@ class UpdateReadingStatusRequest extends FormRequest
             'publisher' => "required|string",
             'imageUrl' => "required|string",
             'status' => 'required|in:to_read,reading,finished,unread',
-            'bookId' => 'required|string',
+            'googleBooksId' => 'required|string',
         ];
     }
 }

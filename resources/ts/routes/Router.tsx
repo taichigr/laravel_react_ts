@@ -65,6 +65,7 @@ export const Router = () => {
 
 
                     {/* book review */}
+                    {/* :idはリファクタリング必須 */}
                     <PrivateRoute path="/book/review/:id" exact>
                         <DefaultLayout>
                             <BookReviewForm />
@@ -72,7 +73,7 @@ export const Router = () => {
                     </PrivateRoute>
 
                     {/* book詳細 */}
-                    <Route path="/book/:id" exact="true">
+                    <Route path="/book/:googleBooksId" exact="true">
                         <DefaultLayout>
                             <BookDetail />
                         </DefaultLayout>

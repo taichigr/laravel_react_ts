@@ -8,10 +8,10 @@ use App\Models\User;
 
 class CheckRecordAction
 {
-    public function __invoke(User $user, string $googleBookId): array
+    public function __invoke(User $user, string $googleBooksId): array
     {
-        // Find book by google_book_id
-        $book = Book::where('google_book_id', $googleBookId)->first();
+        // Find book by google_books_id
+        $book = Book::where('google_books_id', $googleBooksId)->first();
 
         // If book is not found, return early with no record found
         if (!$book) {

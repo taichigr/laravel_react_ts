@@ -23,7 +23,7 @@ class CheckRecordRequest extends FormRequest
     {
         return [
             //
-            'book_id' => 'required|string',
+            'google_books_id' => 'required|string',
         ];
     }
 }

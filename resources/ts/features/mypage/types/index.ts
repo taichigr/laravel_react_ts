@@ -15,7 +15,7 @@ export interface Book {
     title: string;
     author: string;
     publisher: string;
-    google_book_id: string;
+    google_books_id: string;
     image_url: string;
     created_at: string;
     updated_at: string;

@@ -5,11 +5,11 @@ import { fetchBookDetail } from "../api";
 
 export const useFetchBookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookVolume>();
-  const urlParams = useParams<{ id: string }>();
+  const urlParams = useParams<{ googleBooksId: string }>();
 
-  const fetchBook = async (id: string) => {
+  const fetchBook = async (googleBooksId: string) => {
     try {
-      const { data } = await fetchBookDetail(id);
+      const { data } = await fetchBookDetail(googleBooksId);
       setBookDetail(data);
     } catch (error) {
       console.log("Error fetching book:", error);
@@ -17,8 +17,8 @@ export const useFetchBookDetail = () => {
   };
 
   useEffect(() => {
-    fetchBook(urlParams.id);
-  }, [urlParams.id]);
+    fetchBook(urlParams.googleBooksId);
+  }, [urlParams.googleBooksId]);
 
   return { bookDetail };
 };
