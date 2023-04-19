@@ -22,13 +22,12 @@ class UpdateReadingStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             'title' => "required|string",
             'author' => "required|string",
             'publisher' => "required|string",
-            'imageUrl' => "required|string",
+            'image_url' => "required|string",
             'status' => 'required|in:to_read,reading,finished,unread',
-            'googleBooksId' => 'required|string',
+            'google_books_id' => 'required|string',
         ];
     }
 }
