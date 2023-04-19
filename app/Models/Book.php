@@ -14,7 +14,7 @@ class Book extends Model
         'author',
         'publisher',
         'published_date',
-        'google_book_id',
+        'google_books_id',
         'image_url',
     ];
 
