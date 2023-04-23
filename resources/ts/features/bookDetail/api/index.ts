@@ -17,11 +17,11 @@ export const updateReadingStatus = (
 ) => {
   return axios.post(`/api/book/reading_status`, {
     status,
-    googleBooksId,
+    google_books_id: googleBooksId,
     title,
     author,
     publisher,
-    imageUrl,
+    image_url: imageUrl,
   });
 };
 
