@@ -2,24 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Review\StoreOrUpdateRequest;
+use App\Models\Book;
 use App\Models\Review;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
-    //
-    public function store(Request $request)
-    {
-        // コードをここに追加
-    }
 
-    public function update(Request $request, Review $review)
+    public function storeOrUpdate(StoreOrUpdateRequest $request): JsonResponse
     {
-        // コードをここに追加
-    }
+        $user = $request->user();
+        $bookId = $request->book_id;
+        $rating = $request->rating;
+        $comment = $request->comment;
 
-    public function destroy(Review $review)
-    {
-        // コードをここに追加
+        Log::info($bookId);
+        Log::info($rating);
+        Log::info($comment);
+
+        $review = Review::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'book_id' => $bookId,
+            ],
+            [
+                'rating' => $rating,
+                'comment' => $comment,
+            ]
+        );
+
+        Log::info($review);
+
+
+        return response()->json(['message' => 'Review saved successfully', 'review' => $review]);
     }
 }
