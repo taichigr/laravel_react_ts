@@ -1,23 +1,27 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { presentAuthor, presentText } from "../../utils/book/Format";
-import { useFetchBookDetail } from "../../features/bookDetail/hooks/useFetchBookDetail";
+import { presentAuthor } from "../../utils/book/Format";
 import { useAuth } from "../../lib/Auth";
-
-import { Link } from "react-router-dom";
 import { TextareaField } from "../../components/Elements/textarea/TextAreaField";
 import { ReviewData } from "../../features/bookReview/types";
 import { validateReviewForm } from "../../features/bookReview/validation";
 import Rating from "../../components/Elements/Rating/Rating";
+import { useFetchBook } from "../../features/bookReview/hooks/useFetchBook";
+import { storeOrUpdateReview } from "../../features/bookReview/api";
 
 export const BookReviewForm = memo(() => {
-    const { bookDetail } = useFetchBookDetail();
+    const { bookDetail, book, review } = useFetchBook();
     const auth = useAuth();
-    // const userId = auth.user ? auth.user.id : 0;
-    // const bookId = bookDetail ? bookDetail.id : "";
 
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
+
+    useEffect(() => {
+        if (review) {
+            setRating(review.rating);
+            setComment(review.comment);
+        }
+    }, [review]);
 
     const [errors, setErrors] = useState<{
         rating: number | null;
@@ -27,18 +31,19 @@ export const BookReviewForm = memo(() => {
         comment: null,
     });
 
+    // Event handlers
     const handleCommentChange = (
         event: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
         setComment(event.target.value);
     };
+
     const handleRatingChange = (newRating) => {
         setRating(newRating);
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setRating(0);
         const formData: ReviewData = { rating, comment };
         const validationResult = await validateReviewForm(formData);
 
@@ -47,9 +52,24 @@ export const BookReviewForm = memo(() => {
             return;
         }
 
-        // APIを叩いて、レビューを新規作成 or 更新
-        // auth.updateProfile(formData);
-        // history.push("/mypage");
+        try {
+            const response = await storeOrUpdateReview(
+                book.id,
+                rating,
+                comment
+            );
+
+            setRating(response.data.review.rating);
+            setComment(response.data.review.comment);
+
+            if (response.status === 200) {
+                alert("レビューが作成・更新されました。");
+                // history.push("/mypage"); // マイページにリダイレクト（適切なルートに変更してください）
+            }
+        } catch (error) {
+            console.error(error);
+            alert("レビューの作成・更新に失敗しました。");
+        }
     };
 
     return (
@@ -118,8 +138,3 @@ export const BookReviewForm = memo(() => {
         </>
     );
 });
-
-// タスク
-// 状態管理をしてデータをバックエンドに送る
-// 対象：レイティング、コメント
-// 一緒に送るべきデータ。book_id
