@@ -55,7 +55,8 @@ class BookController extends Controller
      */
     public function findBookByGoogleBooksId(FindBookByGoogleBooksIdRequest $request, FindBookByGoogleBooksIdAction $action): JsonResponse
     {
-        $book = $action($request);
-        return response()->json(['book' => $book]);
+        $result = $action($request);
+
+        return response()->json(['book' => $result['book'], 'review' => $result['review']]);
     }
 }
