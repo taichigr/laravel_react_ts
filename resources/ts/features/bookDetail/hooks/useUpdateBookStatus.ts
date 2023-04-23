@@ -2,7 +2,7 @@ import { useState } from "react";
 import { updateReadingStatus } from "../api";
 
 interface Props {
-    bookId: string;
+    googleBooksId: string;
     title: string;
     author: string;
     publisher: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const useUpdateBookStatus = ({
-    bookId,
+    googleBooksId,
     title,
     author,
     publisher,
@@ -27,7 +27,7 @@ export const useUpdateBookStatus = ({
         try {
             await updateReadingStatus(
                 status,
-                bookId,
+                googleBooksId,
                 title,
                 author,
                 publisher,

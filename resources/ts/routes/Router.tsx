@@ -8,6 +8,7 @@ import { authRoutes } from "../features/auth/routes";
 import { DefaultLayout } from "../components/Layout/DefaultLayout";
 import { SearchBooks } from "../pages/SearchBooks";
 import { BookDetail } from "../pages/book/BookDetail";
+import { BookReviewForm } from "../pages/book/BookReviewForm";
 import { EditProfile } from "../pages/auth/EditProfile";
 import { Profile } from "../pages/auth/Profile";
 
@@ -61,11 +62,24 @@ export const Router = () => {
                             <SearchBooks />
                         </DefaultLayout>
                     </Route>
-                    <Route path="/book/:id" exact="true">
+
+
+                    {/* book review */}
+                    {/* :idはリファクタリング必須 */}
+                    <PrivateRoute path="/book/review/:id" exact>
+                        <DefaultLayout>
+                            <BookReviewForm />
+                        </DefaultLayout>
+                    </PrivateRoute>
+
+                    {/* book詳細 */}
+                    <Route path="/book/:googleBooksId" exact="true">
                         <DefaultLayout>
                             <BookDetail />
                         </DefaultLayout>
                     </Route>
+
+                    
                     <Route path="*">
                         <Page404 />
                     </Route>

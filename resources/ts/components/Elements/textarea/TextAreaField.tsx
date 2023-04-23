@@ -1,16 +1,15 @@
 import React, { ChangeEvent, ReactNode, VFC } from "react";
 
 type Props = {
-    type: string;
     id: string;
     label: string;
     value?: string;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
     error?: string | null;
 };
 
-export const InputField: VFC<Props> = (props) => {
-    const { type, id, label, value, onChange, error } = props;
+export const TextareaField: VFC<Props> = (props) => {
+    const { id, label, value, onChange, error } = props;
     return (
         <>
             <div className="py-4">
@@ -20,11 +19,10 @@ export const InputField: VFC<Props> = (props) => {
                 >
                     {label}
                 </label>
-                <input
-                    className={`mt-1 block w-full py-2 px-3 border ${
+                <textarea
+                    className={`resize-none w-full h-32 p-2 border border-gray-300 rounded-md ${
                         error ? "border-red-500" : "border-gray-300"
                     } bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
-                    type={type}
                     id={id}
                     value={value}
                     onChange={onChange}

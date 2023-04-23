@@ -3,7 +3,7 @@ import { checkUserBookRecord } from "../api";
 
 export const useCheckUserBookRecord = (
     userId: number | null,
-    bookId: string
+    googleBooksId: string
 ) => {
     const [recordExists, setRecordExists] = useState<boolean>(false);
     const [recordStatus, setRecordStatus] = useState<string | null>(null);
@@ -15,11 +15,11 @@ export const useCheckUserBookRecord = (
                     return;
                 }
 
-                if (!bookId) {
+                if (!googleBooksId) {
                     return;
                 }
 
-                const { data } = await checkUserBookRecord(bookId);
+                const { data } = await checkUserBookRecord(googleBooksId);
                 setRecordExists(data.exists);
                 setRecordStatus(data.status);
             } catch (error) {
@@ -28,7 +28,7 @@ export const useCheckUserBookRecord = (
         };
 
         fetchUserBookRecord();
-    }, [userId, bookId]);
+    }, [userId, googleBooksId]);
 
     return { recordExists, recordStatus };
 };

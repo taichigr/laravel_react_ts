@@ -1,15 +1,15 @@
 import { axios } from "../../../lib/axios";
 import { BookVolume } from "../types";
 
-export const fetchBookDetail = (id: string) => {
+export const fetchBookDetail = (googleBooksId: string) => {
   return axios.get<BookVolume>(
-    `https://www.googleapis.com/books/v1/volumes/${id}`
+    `https://www.googleapis.com/books/v1/volumes/${googleBooksId}`
   );
 };
 
 export const updateReadingStatus = (
   status: string,
-  bookId: string,
+  googleBooksId: string,
   title: string,
   author: string,
   publisher: string,
@@ -17,18 +17,18 @@ export const updateReadingStatus = (
 ) => {
   return axios.post(`/api/book/reading_status`, {
     status,
-    bookId,
+    google_books_id: googleBooksId,
     title,
     author,
     publisher,
-    imageUrl,
+    image_url: imageUrl,
   });
 };
 
-export const checkUserBookRecord = (bookId: string) => {
+export const checkUserBookRecord = (googleBooksId: string) => {
     return axios.get<{ exists: boolean, status: string | null }>(`/api/book/check_record`, {
         params: {
-            book_id: bookId,
+            google_books_id: googleBooksId,
         },
     });
 };

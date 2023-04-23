@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Book;
+namespace App\Http\Requests\Review;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckRecordRequest extends FormRequest
+class StoreOrUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class CheckRecordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'google_books_id' => 'required|string',
+            'book_id' => 'required|integer|exists:books,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
         ];
     }
 }

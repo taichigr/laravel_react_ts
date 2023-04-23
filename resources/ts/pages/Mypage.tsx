@@ -37,10 +37,10 @@ export const Mypage = memo(() => {
 
     return (
         <>
-            <div className="p-2 max-w-screen-sm mx-auto">
+            <div className="p-2 max-w-screen-sm mx-auto mt-4">
                 <UserProfile name={auth.user.name} />
             </div>
-            <div className="p-2 max-w-screen-sm mx-auto">
+            <div className="p-2 max-w-screen-sm mx-auto mt-4">
                 <p className="my-2">登録した本</p>
                 <p className="my-2">{bookCount}冊</p>
                 <select
@@ -55,7 +55,7 @@ export const Mypage = memo(() => {
                     <option value="unread">積読</option>
                 </select>
             </div>
-            <div className="p-2 max-w-screen-sm mx-auto">
+            <div className="p-2 max-w-screen-sm mx-auto mt-4">
                 {userBookList.map((item, index) => (
                     <ReadingRecordItemCard key={index} record={item} />
                 ))}
