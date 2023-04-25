@@ -4,7 +4,7 @@ import { presentAuthor, presentText } from "../../utils/book/Format";
 import { SelectBookStatus } from "../../features/bookDetail/components/SelectBookStatus";
 import { useFetchBookDetail } from "../../features/bookDetail/hooks/useFetchBookDetail";
 import { useAuth } from "../../lib/Auth";
-import { useCheckUserBookRecord } from "../../features/bookDetail/hooks/useCheckUserBookRecord";
+import { useShowReviewButton } from "../../features/bookDetail/hooks/useShowReviewButton";
 
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export const BookDetail = memo(() => {
     const auth = useAuth();
     const userId = auth.user ? auth.user.id : 0;
     const bookId = bookDetail ? bookDetail.id : "";
-    const { recordExists, recordStatus } = useCheckUserBookRecord(
+    const { showReviewButton, handleStatusChange, recordStatus } = useShowReviewButton(
         userId,
         bookId
     );
@@ -57,16 +57,19 @@ export const BookDetail = memo(() => {
                                         ?.smallThumbnail
                                 }
                                 defaultStatus={recordStatus}
+                                onStatusChange={handleStatusChange}
                             />
                         </div>
-                        <div className="my-4">
-                            <Link
-                                to={`/book/review/${bookDetail.id}`}
-                                className="bg-teal-500 text-white font-semibold py-2 px-4 rounded hover:bg-teal-600"
-                            >
-                                レビューを書く
-                            </Link>
-                        </div>
+                        {showReviewButton && (
+                            <div className="my-4">
+                                <Link
+                                    to={`/book/review/${bookDetail.id}`}
+                                    className="bg-teal-500 text-white font-semibold py-2 px-4 rounded hover:bg-teal-600"
+                                >
+                                    レビューを書く
+                                </Link>
+                            </div>
+                        )}
                     </div>
                     <div className="p-2 mt-4">
                         <div>
@@ -81,3 +84,5 @@ export const BookDetail = memo(() => {
         </>
     );
 });
+
+// レビューへのコメント機能

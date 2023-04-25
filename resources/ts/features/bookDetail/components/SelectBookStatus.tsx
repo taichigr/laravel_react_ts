@@ -9,10 +9,19 @@ interface Props {
     publisher: string;
     imageUrl: string;
     defaultStatus: string;
+    onStatusChange?: (newStatus: string | null) => void;
 }
 
 export const SelectBookStatus = memo(
-    ({ googleBooksId, title, author, publisher, imageUrl, defaultStatus }: Props) => {
+    ({
+        googleBooksId,
+        title,
+        author,
+        publisher,
+        imageUrl,
+        defaultStatus,
+        onStatusChange,
+    }: Props) => {
         const auth = useAuth();
 
         const { selectedValue, handleChange } = useUpdateBookStatus({
@@ -29,9 +38,10 @@ export const SelectBookStatus = memo(
                     alert("ログインが必要です。");
                 } else {
                     handleChange(event);
+                    onStatusChange && onStatusChange(event.target.value);
                 }
             },
-            [auth.user, handleChange]
+            [auth.user, handleChange, onStatusChange]
         );
         return (
             <div>
